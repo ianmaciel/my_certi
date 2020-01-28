@@ -22,34 +22,31 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:my_certi/screens/home_sceen.dart';
-import 'package:my_certi/screens/login_screen.dart';
+///
+/// Create a user field.
+///
+class UserField extends StatelessWidget {
+  UserField({
+    this.autocorrect = false,
+    this.autofocus = false,
+    this.focusNode,
+    this.nextInputFocusNode,
+  });
 
-void main() => runApp(MyApp());
+  final bool autocorrect;
+  final bool autofocus;
+  final FocusNode focusNode;
+  final FocusNode nextInputFocusNode;
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: LoginScreen(),
-      routes: <String, WidgetBuilder>{
-        '/login': (context) => LoginScreen(),
-        '/home': (context) => HomeScreen(),
-      },
-    );
-  }
+  Widget build(BuildContext context) => TextFormField(
+        autocorrect: autocorrect,
+        autofocus: autofocus,
+        decoration: InputDecoration(
+          labelText: 'E-mail',
+        ),
+        focusNode: focusNode,
+        keyboardType: TextInputType.emailAddress,
+        textInputAction: TextInputAction.next,
+      );
 }
