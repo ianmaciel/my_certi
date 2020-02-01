@@ -25,7 +25,8 @@ import 'package:flutter/material.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
-          body: Container(
-        child: Text('Hello!'),
-      ));
+        appBar: AppBar(
+          title: Text("Minha CERTI"),
+        ),
+      );
 }
