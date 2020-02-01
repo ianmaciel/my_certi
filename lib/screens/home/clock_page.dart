@@ -22,37 +22,14 @@
 
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class ClockPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text("Minha CERTI"),
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(Icons.settings),
-                onPressed: () => Navigator.of(context).pushNamed('/settings'))
-          ],
-        ),
-        drawer: Drawer(
-          child: ListView(
-            // Remove any padding from the ListView.
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                child: Text('Minha CERTI'),
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                ),
-              ),
-              ListTile(
-                title: Text('Ponto'),
-                onTap: () {
-                  // Close the drawer
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          ),
-        ),
-      );
+  _ClockPageState createState() => _ClockPageState();
+}
+
+class _ClockPageState extends State<ClockPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
 }
