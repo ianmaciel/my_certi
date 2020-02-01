@@ -27,6 +27,11 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           title: Text("Minha CERTI"),
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(Icons.settings),
+                onPressed: () => Navigator.of(context).pushNamed('/settings'))
+          ],
         ),
       );
 }
