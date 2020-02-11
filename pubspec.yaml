@@ -15,7 +15,7 @@ version: 1.0.0+1
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
-  flutter: 1.12.13+hotfix.5
+  flutter: "^1.12.13"
 
 dependencies:
   flutter:
@@ -25,6 +25,8 @@ dependencies:
   firebase_database: ^3.1.0
   google_sign_in: ^4.0.14
   intl: ^0.16.1
+  json_annotation: ^3.0.1
+  ahgora_api: ^0.1.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -34,7 +36,8 @@ dev_dependencies:
   test:
   flutter_test:
     sdk: flutter
-
+  build_runner:
+  json_serializable: ^3.2.5
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
