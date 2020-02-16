@@ -71,6 +71,7 @@ class _AhgoraSettingsStateScreen extends State<AhgoraSettingsScreen> {
               decoration: InputDecoration(
                 labelText: 'Password',
               ),
+              obscureText: true,
             ),
             SizedBox(height: 12.0),
             ListTile(
