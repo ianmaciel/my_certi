@@ -23,7 +23,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:my_certi/screens/home/home_sceen.dart';
-import 'package:my_certi/screens/settings_screen.dart';
+import 'package:my_certi/screens/settings/settings_screen.dart';
 import 'package:my_certi/screens/login_screen.dart';
 
 void main() => runApp(MyApp());

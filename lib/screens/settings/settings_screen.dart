@@ -24,11 +24,29 @@ import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Settings'),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text('Settings'),
+        ),
+        body: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 24.0),
+          children: ListTile.divideTiles(
+            context: context,
+            tiles: <Widget>[
+              SizedBox(height: 64.0),
+              _AhgoraSettings(),
+              SizedBox(height: 64.0),
+            ],
+          ).toList(),
+        ),
+      );
+}
+
+class _AhgoraSettings extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => ListTile(
+        title: Text('Ahgora Account'),
+        subtitle: Text('Setup ahgora account'),
+        onTap: () => Navigator.pushNamed(context, '/ahgora_settings'),
+      );
 }
