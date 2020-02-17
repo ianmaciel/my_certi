@@ -85,8 +85,8 @@ class _BuildTodayPageState extends State<BuildTodayPage> {
 
   Future<void> _updateMonthlyReport() async {
     try {
-      MonthlyReport report =
-          await _ahgora.getMonthlyReport(DateTime.now(), fiscalMonth: false);
+      MonthlyReport report = await _ahgora.getMonthlyReport(DateTime.now(),
+          fiscalMonth: _settings.ahgoraUseFiscalMonth);
 
       setState(() {
         _monthlyReport = report;
