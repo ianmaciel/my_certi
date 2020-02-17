@@ -26,7 +26,7 @@ dependencies:
   google_sign_in: ^4.0.14
   intl: ^0.16.1
   json_annotation: ^3.0.1
-  ahgora_api: ^0.1.6
+  ahgora_api: ^0.1.7
   flutter_secure_storage: ^3.3.1+1
 
 #dependency_overrides:

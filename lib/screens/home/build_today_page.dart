@@ -48,6 +48,10 @@ class _BuildTodayPageState extends State<BuildTodayPage> {
   /// Called when AppSettings finish loading settings.
   ///
   void initSettingsCallback() {
+    initAhgora();
+  }
+
+  void initAhgora() {
     _loading = true;
     if (_settings.isConnectedToAhgora) {
       _ahgora.jwt = _settings.ahgoraJwt;
@@ -68,6 +72,9 @@ class _BuildTodayPageState extends State<BuildTodayPage> {
 
   void _loginCallback(bool result) {
     if (result) {
+      // Save session and get the monthly report.
+      _settings.saveAhgoraJwt(_ahgora.jwt);
+      _settings.saveAhgoraJwtExpiration(_ahgora.expirationDate);
       _updateMonthlyReport();
     } else {
       setState(() {
@@ -77,12 +84,22 @@ class _BuildTodayPageState extends State<BuildTodayPage> {
   }
 
   Future<void> _updateMonthlyReport() async {
-    MonthlyReport report =
-        await _ahgora.getMonthlyReport(DateTime.now(), fiscalMonth: false);
-    setState(() {
-      _monthlyReport = report;
-      _loading = false;
-    });
+    try {
+      MonthlyReport report =
+          await _ahgora.getMonthlyReport(DateTime.now(), fiscalMonth: false);
+
+      setState(() {
+        _monthlyReport = report;
+        _loading = false;
+      });
+    } on InexistentSession {
+      // Invalid session. Session has expired or token has been cancelled.
+      _settings.ahgoraJwt = null;
+      _settings.ahgoraJwtExpiration = null;
+
+      // Restart
+      initAhgora();
+    }
   }
 
   @override

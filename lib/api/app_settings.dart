@@ -80,7 +80,9 @@ class AppSettings {
       _allValues[_StoreKeys.ahgoraCompany] = value;
   void saveAhgoraCompanyId(String value) async {
     _ahgoraCompany = value;
-    await storage.write(key: _StoreKeys.ahgoraCompany, value: value);
+    if (ahgoraSaveCredentials) {
+      await storage.write(key: _StoreKeys.ahgoraCompany, value: value);
+    }
   }
 
   int get ahgoraUserId => int.parse(_readKey(_StoreKeys.ahgoraUserId));
@@ -88,7 +90,9 @@ class AppSettings {
       _allValues[_StoreKeys.ahgoraUserId] = '$value';
   void saveAhgoraUserId(int value) async {
     _ahgoraUserId = value;
-    await storage.write(key: _StoreKeys.ahgoraUserId, value: '$value');
+    if (ahgoraSaveCredentials) {
+      await storage.write(key: _StoreKeys.ahgoraUserId, value: '$value');
+    }
   }
 
   String get ahgoraPassword => _readKey(_StoreKeys.ahgoraPassword);
@@ -96,14 +100,18 @@ class AppSettings {
       _allValues[_StoreKeys.ahgoraPassword] = value;
   void saveAhgoraPassword(String value) async {
     _ahgoraPassword = value;
-    await storage.write(key: _StoreKeys.ahgoraPassword, value: value);
+    if (ahgoraSaveCredentials) {
+      await storage.write(key: _StoreKeys.ahgoraPassword, value: value);
+    }
   }
 
   String get ahgoraJwt => _readKey(_StoreKeys.ahgoraJwt);
   set ahgoraJwt(String value) => _allValues[_StoreKeys.ahgoraJwt] = value;
   void saveAhgoraJwt(String value) async {
     ahgoraJwt = value;
-    await storage.write(key: _StoreKeys.ahgoraJwt, value: value);
+    if (ahgoraKeepSession) {
+      await storage.write(key: _StoreKeys.ahgoraJwt, value: value);
+    }
   }
 
   DateTime get ahgoraJwtExpiration =>
