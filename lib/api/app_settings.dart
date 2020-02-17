@@ -76,44 +76,74 @@ class AppSettings {
 
   // Setter/getters for ahgora authentication.
   String get ahgoraCompany => _readKey(_StoreKeys.ahgoraCompany);
-  set ahgoraCompany(String value) =>
+  set _ahgoraCompany(String value) =>
       _allValues[_StoreKeys.ahgoraCompany] = value;
-  int get ahgoraUserId => int.parse(_readKey(_StoreKeys.ahgoraUserId));
-  set ahgoraUserId(int value) => _allValues[_StoreKeys.ahgoraUserId] = '$value';
-  String get ahgoraPassword => _readKey(_StoreKeys.ahgoraPassword);
-  set ahgoraPassword(String value) =>
-      _allValues[_StoreKeys.ahgoraPassword] = value;
-  String get ahgoraJwt => _readKey(_StoreKeys.ahgoraJwt);
-  set ahgoraJwt(String value) => _allValues[_StoreKeys.ahgoraJwt] = value;
-  DateTime get ahgoraJwtExpiration =>
-      DateTime.parse(_readKey(_StoreKeys.ahgoraJwtExpiration));
-  set ahgoraJwtExpiration(DateTime value) =>
-      _allValues[_StoreKeys.ahgoraJwtExpiration] = value.toString();
-
   void saveAhgoraCompanyId(String value) async {
-    ahgoraCompany = value;
+    _ahgoraCompany = value;
     await storage.write(key: _StoreKeys.ahgoraCompany, value: value);
   }
 
+  int get ahgoraUserId => int.parse(_readKey(_StoreKeys.ahgoraUserId));
+  set _ahgoraUserId(int value) =>
+      _allValues[_StoreKeys.ahgoraUserId] = '$value';
   void saveAhgoraUserId(int value) async {
-    ahgoraUserId = value;
+    _ahgoraUserId = value;
     await storage.write(key: _StoreKeys.ahgoraUserId, value: '$value');
   }
 
+  String get ahgoraPassword => _readKey(_StoreKeys.ahgoraPassword);
+  set _ahgoraPassword(String value) =>
+      _allValues[_StoreKeys.ahgoraPassword] = value;
   void saveAhgoraPassword(String value) async {
-    ahgoraPassword = value;
+    _ahgoraPassword = value;
     await storage.write(key: _StoreKeys.ahgoraPassword, value: value);
   }
 
+  String get ahgoraJwt => _readKey(_StoreKeys.ahgoraJwt);
+  set ahgoraJwt(String value) => _allValues[_StoreKeys.ahgoraJwt] = value;
   void saveAhgoraJwt(String value) async {
     ahgoraJwt = value;
     await storage.write(key: _StoreKeys.ahgoraJwt, value: value);
   }
 
+  DateTime get ahgoraJwtExpiration =>
+      DateTime.parse(_readKey(_StoreKeys.ahgoraJwtExpiration));
+  set ahgoraJwtExpiration(DateTime value) =>
+      _allValues[_StoreKeys.ahgoraJwtExpiration] = value.toString();
   void saveAhgoraJwtExpiration(DateTime value) async {
     ahgoraJwtExpiration = value;
     await storage.write(
         key: _StoreKeys.ahgoraJwtExpiration, value: value.toString());
+  }
+
+  bool get ahgoraKeepSession =>
+      _readKey(_StoreKeys.ahgoraKeepSession) == 'true';
+  set _ahgoraKeepSession(bool value) =>
+      _allValues[_StoreKeys.ahgoraKeepSession] = value.toString();
+  void saveAhgoraKeepSession(bool value) async {
+    _ahgoraKeepSession = value;
+    await storage.write(
+        key: _StoreKeys.ahgoraKeepSession, value: value.toString());
+  }
+
+  bool get ahgoraSaveCredentials =>
+      _readKey(_StoreKeys.ahgoraSaveCredentials) == 'true';
+  set _ahgoraSaveCredentials(bool value) =>
+      _allValues[_StoreKeys.ahgoraSaveCredentials] = value.toString();
+  void saveAhgoraSaveCredentials(bool value) async {
+    _ahgoraSaveCredentials = value;
+    await storage.write(
+        key: _StoreKeys.ahgoraSaveCredentials, value: value.toString());
+  }
+
+  bool get ahgoraUseFiscalMonth =>
+      _readKey(_StoreKeys.ahgoraUseFiscalMonth) == 'true';
+  set _ahgoraUseFiscalMonth(bool value) =>
+      _allValues[_StoreKeys.ahgoraUseFiscalMonth] = value.toString();
+  void saveAhgoraUseFiscalMonth(bool value) async {
+    _ahgoraUseFiscalMonth = value;
+    await storage.write(
+        key: _StoreKeys.ahgoraUseFiscalMonth, value: value.toString());
   }
 
   bool get isConnectedToAhgora =>
@@ -128,4 +158,7 @@ class _StoreKeys {
   static const String ahgoraUserId = 'ahgoraUserId';
   static const String ahgoraPassword = 'ahgoraPassword';
   static const String ahgoraCompany = 'ahgoraCompany';
+  static const String ahgoraKeepSession = 'ahgoraKeepSession';
+  static const String ahgoraSaveCredentials = 'ahgoraSaveCredentials';
+  static const String ahgoraUseFiscalMonth = 'ahgoraUseFiscalMonth';
 }

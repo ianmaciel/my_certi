@@ -167,5 +167,8 @@ class _AhgoraSettingsStateScreen extends State<AhgoraSettingsScreen> {
       _settings.saveAhgoraUserId(int.parse(_userIDController.text));
       _settings.saveAhgoraPassword(_passwordController.text);
     }
+    _settings.saveAhgoraKeepSession(_keepSession);
+    _settings.saveAhgoraSaveCredentials(_savePassword);
+    _settings.saveAhgoraUseFiscalMonth(_useFiscalMonth);
   }
 }
