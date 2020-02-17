@@ -32,7 +32,6 @@ class AhgoraSettingsScreen extends StatefulWidget {
 class _AhgoraSettingsStateScreen extends State<AhgoraSettingsScreen> {
   bool _savePassword = false;
   bool _keepSession = true;
-  bool connected = _settings.isConnectedToAhgora;
 
   static AppSettings _settings = AppSettings();
 
@@ -103,8 +102,8 @@ class _AhgoraSettingsStateScreen extends State<AhgoraSettingsScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     RaisedButton(
-                      child: Text(connected ? 'Connected!' : 'Connect'),
-                      onPressed: _connect,
+                      child: Text('Save'),
+                      onPressed: _onSave,
                     ),
                   ],
                 ),
@@ -126,7 +125,7 @@ class _AhgoraSettingsStateScreen extends State<AhgoraSettingsScreen> {
     });
   }
 
-  void _connect() async {
+  void _onSave() async {
     Ahgora ahgora = Ahgora();
     bool result = await ahgora.login(_companyController.text,
         int.parse(_userIDController.text), _passwordController.text);
