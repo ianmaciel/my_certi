@@ -32,6 +32,7 @@ class AhgoraSettingsScreen extends StatefulWidget {
 class _AhgoraSettingsStateScreen extends State<AhgoraSettingsScreen> {
   bool _savePassword = false;
   bool _keepSession = true;
+  bool _useFiscalMonth = false;
 
   static AppSettings _settings = AppSettings();
 
@@ -95,6 +96,17 @@ class _AhgoraSettingsStateScreen extends State<AhgoraSettingsScreen> {
                 ],
               ),
             ),
+            ListTile(
+              subtitle: Row(
+                children: <Widget>[
+                  Text('Use fiscal month'),
+                  Switch.adaptive(
+                    value: _useFiscalMonth,
+                    onChanged: _onChangeUseFiscalMonth,
+                  ),
+                ],
+              ),
+            ),
             Expanded(
               child: Container(
                 alignment: Alignment.bottomCenter,
@@ -122,6 +134,12 @@ class _AhgoraSettingsStateScreen extends State<AhgoraSettingsScreen> {
   void _onChangeKeepSession(bool keep) {
     setState(() {
       _keepSession = keep;
+    });
+  }
+
+  void _onChangeUseFiscalMonth(bool useFiscalMonth) {
+    setState(() {
+      _useFiscalMonth = useFiscalMonth;
     });
   }
 
