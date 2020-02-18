@@ -30,9 +30,9 @@ class AhgoraSettingsScreen extends StatefulWidget {
 }
 
 class _AhgoraSettingsStateScreen extends State<AhgoraSettingsScreen> {
-  bool _savePassword = false;
-  bool _keepSession = true;
-  bool _useFiscalMonth = false;
+  bool _savePassword = _settings.ahgoraSaveCredentials;
+  bool _keepSession = _settings.ahgoraKeepSession;
+  bool _useFiscalMonth = _settings.ahgoraUseFiscalMonth;
 
   static AppSettings _settings = AppSettings();
 
