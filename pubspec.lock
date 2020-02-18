@@ -14,7 +14,7 @@ packages:
       name: ahgora_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.7"
+    version: "0.1.8"
   analyzer:
     dependency: transitive
     description:

@@ -53,13 +53,22 @@ class _AhgoraListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ListTile(
         title: Text('${_dateFormat.format(_day.reference)}'),
-        subtitle: Text(_buildclockTimeList()),
+        subtitle: RichText(text: _buildClockTimeList(context)),
       );
 
-  String _buildclockTimeList() {
-    String clockTimeList = '';
-    _day.clockTimes.forEach((ClockTime clockTime) =>
-        clockTimeList = '$clockTimeList ${_hourFormat.format(clockTime.time)}');
-    return clockTimeList;
+  TextSpan _buildClockTimeList(BuildContext context) {
+    List<TextSpan> textSpans = _day.clockTimes.map((ClockTime clockTime) {
+      TextStyle textStyle = Theme.of(context).textTheme.subtitle1;
+
+      if (clockTime.type == ClockTimeType.expected) {
+        textStyle = textStyle.merge(
+          TextStyle(color: Colors.grey),
+        );
+      }
+
+      return TextSpan(
+          text: '${_hourFormat.format(clockTime.time)} ', style: textStyle);
+    }).toList();
+    return TextSpan(children: textSpans);
   }
 }
