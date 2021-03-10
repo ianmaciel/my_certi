@@ -21,10 +21,71 @@
  */
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+
+class _SafeFlutterSecureStorage extends FlutterSecureStorage {
+  const _SafeFlutterSecureStorage() : super();
+
+  /// Decrypts and returns all keys with associated values.
+  ///
+  /// [iOptions] optional iOS options
+  /// [aOptions] optional Android options
+  /// [lOptions] optional Linux options
+  /// Can throw a [PlatformException].
+  @override
+  Future<Map<String, String>> readAll({
+    IOSOptions? iOptions = IOSOptions.defaultOptions,
+    AndroidOptions? aOptions,
+    LinuxOptions? lOptions,
+  }) async {
+    // Secure storage is not available for web yet.
+    // Return an empty map.
+    if (kIsWeb) {
+      return <String, String>{};
+    }
+
+    return super.readAll(
+      iOptions: iOptions,
+      aOptions: aOptions,
+      lOptions: lOptions,
+    );
+  }
+
+  /// Encrypts and saves the [key] with the given [value].
+  ///
+  /// If the key was already in the storage, its associated value is changed.
+  /// If the value is null, deletes associated value for the given [key].
+  /// [key] shouldn't be null.
+  /// [value] required value
+  /// [iOptions] optional iOS options
+  /// [aOptions] optional Android options
+  /// [lOptions] optional Linux options
+  /// Can throw a [PlatformException].
+  @override
+  Future<void> write({
+    required String key,
+    required String? value,
+    IOSOptions? iOptions = IOSOptions.defaultOptions,
+    AndroidOptions? aOptions,
+    LinuxOptions? lOptions,
+  }) {
+    if (kIsWeb) {
+      return Future.value();
+    }
+
+    return super.write(
+      key: key,
+      value: value,
+      iOptions: iOptions,
+      aOptions: aOptions,
+      lOptions: lOptions,
+    );
+  }
+}
 
 class AppSettings {
   Map<String, String?> _allValues = Map<String, String?>();
-  final storage = new FlutterSecureStorage();
+  final storage = new _SafeFlutterSecureStorage();
 
   /// Read-only status - indicate when all the keys are loaded.
   static bool _ready = false;
