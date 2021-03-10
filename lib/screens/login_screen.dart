@@ -23,6 +23,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+// This library is not migrated to nul safety yet.
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:firebase_database/firebase_database.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -60,11 +62,11 @@ class LoginScreen extends StatelessWidget {
 }
 
 class _LoginButton extends StatelessWidget {
-  _LoginButton({@required this.onPressed});
+  _LoginButton({required this.onPressed});
   final Function() onPressed;
 
   @override
-  Widget build(BuildContext context) => RaisedButton(
+  Widget build(BuildContext context) => ElevatedButton(
         onPressed: onPressed,
         child: Text('LOGIN'),
       );
@@ -75,24 +77,29 @@ class _GoogleSignInButton extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
-  Widget build(BuildContext context) => RaisedButton(
+  Widget build(BuildContext context) => ElevatedButton(
         onPressed: () => _onPressed(context),
         child: Text('SIGN-IN USING GOOGLE'),
       );
 
-  Future<FirebaseUser> _onPressed(BuildContext context) async {
-    final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+  Future<User> _onPressed(BuildContext context) async {
+    final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+    if (googleUser == null) {
+      throw Exception('Login aborted');
+    }
     final GoogleSignInAuthentication googleAuth =
         await googleUser.authentication;
 
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
+    final OAuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
 
-    final FirebaseUser user =
-        (await _auth.signInWithCredential(credential)).user;
-    print("signed in " + user.displayName);
+    final User? user = (await _auth.signInWithCredential(credential)).user;
+    if (user == null) {
+      throw Exception("Couldn't log in");
+    }
+    print("signed in " + (user.displayName ?? ''));
     await Navigator.of(context).pushNamed('/home');
     return user;
   }

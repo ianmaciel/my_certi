@@ -35,8 +35,8 @@ class UserField extends StatelessWidget {
 
   final bool autocorrect;
   final bool autofocus;
-  final FocusNode focusNode;
-  final FocusNode nextInputFocusNode;
+  final FocusNode? focusNode;
+  final FocusNode? nextInputFocusNode;
 
   @override
   Widget build(BuildContext context) => TextFormField(

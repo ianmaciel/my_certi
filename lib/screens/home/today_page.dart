@@ -37,9 +37,9 @@ class TodayPage extends StatelessWidget {
       );
 
   List<Widget> _buildListItems() =>
-      _monthlyReport?.days?.reversed
-          ?.map((Day day) => _AhgoraListTile(day))
-          ?.toList() ??
+      _monthlyReport.days?.reversed
+          .map((Day day) => _AhgoraListTile(day))
+          .toList() ??
       <Widget>[];
 }
 
@@ -58,7 +58,7 @@ class _AhgoraListTile extends StatelessWidget {
 
   TextSpan _buildClockTimeList(BuildContext context) {
     List<TextSpan> textSpans = _day.clockTimes.map((ClockTime clockTime) {
-      TextStyle textStyle = Theme.of(context).textTheme.subtitle1;
+      TextStyle textStyle = Theme.of(context).textTheme.subtitle1!;
 
       if (clockTime.type == ClockTimeType.expected) {
         textStyle = textStyle.merge(

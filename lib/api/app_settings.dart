@@ -23,7 +23,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AppSettings {
-  Map<String, String> _allValues;
+  Map<String, String?> _allValues = Map<String, String?>();
   final storage = new FlutterSecureStorage();
 
   /// Read-only status - indicate when all the keys are loaded.
@@ -31,12 +31,12 @@ class AppSettings {
   static bool get ready => _ready;
 
   // List of listeners to notify when ready.
-  static List<Function> initListeners = List<Function>();
+  static List<Function> initListeners = <Function>[];
 
   // Allow only one instance of AppSettings.
   // Singleton
   static final AppSettings _singleton = AppSettings._internal();
-  factory AppSettings({Function listener}) {
+  factory AppSettings({Function? listener}) {
     // Add to the listeners list if this is not ready yet.
     // If already ready, then notify.
     if (listener != null) {
@@ -54,15 +54,15 @@ class AppSettings {
   }
 
   _readAllCompleted(Map<String, String> values) {
-    _allValues = values ?? Map<String, String>();
+    _allValues = values;
     _ready = true;
 
     // Notifiy all listeners and cleanup the list.
     initListeners.forEach((Function listener) => listener());
-    initListeners = List<Function>();
+    initListeners = <Function>[];
   }
 
-  String _readKey(String key) {
+  String? _readKey(String key) {
     if (!_ready) {
       print('MyCERTI: ERROR: AppSettings() can not read key before read all');
       return null;
@@ -75,47 +75,47 @@ class AppSettings {
   }
 
   // Setter/getters for ahgora authentication.
-  String get ahgoraCompany => _readKey(_StoreKeys.ahgoraCompany);
+  String? get ahgoraCompany => _readKey(_StoreKeys.ahgoraCompany);
   set _ahgoraCompany(String value) =>
       _allValues[_StoreKeys.ahgoraCompany] = value;
   void saveAhgoraCompanyId(String value) async {
     _ahgoraCompany = value;
-    if (ahgoraSaveCredentials) {
+    if (ahgoraSaveCredentials!) {
       await storage.write(key: _StoreKeys.ahgoraCompany, value: value);
     }
   }
 
-  int get ahgoraUserId => int.parse(_readKey(_StoreKeys.ahgoraUserId));
+  int? get ahgoraUserId => int.parse(_readKey(_StoreKeys.ahgoraUserId)!);
   set _ahgoraUserId(int value) =>
       _allValues[_StoreKeys.ahgoraUserId] = '$value';
   void saveAhgoraUserId(int value) async {
     _ahgoraUserId = value;
-    if (ahgoraSaveCredentials) {
+    if (ahgoraSaveCredentials!) {
       await storage.write(key: _StoreKeys.ahgoraUserId, value: '$value');
     }
   }
 
-  String get ahgoraPassword => _readKey(_StoreKeys.ahgoraPassword);
+  String? get ahgoraPassword => _readKey(_StoreKeys.ahgoraPassword);
   set _ahgoraPassword(String value) =>
       _allValues[_StoreKeys.ahgoraPassword] = value;
   void saveAhgoraPassword(String value) async {
     _ahgoraPassword = value;
-    if (ahgoraSaveCredentials) {
+    if (ahgoraSaveCredentials!) {
       await storage.write(key: _StoreKeys.ahgoraPassword, value: value);
     }
   }
 
-  String get ahgoraJwt => _readKey(_StoreKeys.ahgoraJwt);
-  set ahgoraJwt(String value) => _allValues[_StoreKeys.ahgoraJwt] = value;
+  String? get ahgoraJwt => _readKey(_StoreKeys.ahgoraJwt);
+  set ahgoraJwt(String? value) => _allValues[_StoreKeys.ahgoraJwt] = value;
   void saveAhgoraJwt(String value) async {
     ahgoraJwt = value;
-    if (ahgoraKeepSession) {
+    if (ahgoraKeepSession!) {
       await storage.write(key: _StoreKeys.ahgoraJwt, value: value);
     }
   }
 
   DateTime get ahgoraJwtExpiration =>
-      DateTime.parse(_readKey(_StoreKeys.ahgoraJwtExpiration));
+      DateTime.parse(_readKey(_StoreKeys.ahgoraJwtExpiration)!);
   set ahgoraJwtExpiration(DateTime value) =>
       _allValues[_StoreKeys.ahgoraJwtExpiration] = value.toString();
   void saveAhgoraJwtExpiration(DateTime value) async {
@@ -124,7 +124,7 @@ class AppSettings {
         key: _StoreKeys.ahgoraJwtExpiration, value: value.toString());
   }
 
-  bool get ahgoraKeepSession =>
+  bool? get ahgoraKeepSession =>
       _readKey(_StoreKeys.ahgoraKeepSession) == 'true';
   set _ahgoraKeepSession(bool value) =>
       _allValues[_StoreKeys.ahgoraKeepSession] = value.toString();
@@ -134,7 +134,7 @@ class AppSettings {
         key: _StoreKeys.ahgoraKeepSession, value: value.toString());
   }
 
-  bool get ahgoraSaveCredentials =>
+  bool? get ahgoraSaveCredentials =>
       _readKey(_StoreKeys.ahgoraSaveCredentials) == 'true';
   set _ahgoraSaveCredentials(bool value) =>
       _allValues[_StoreKeys.ahgoraSaveCredentials] = value.toString();
@@ -144,7 +144,7 @@ class AppSettings {
         key: _StoreKeys.ahgoraSaveCredentials, value: value.toString());
   }
 
-  bool get ahgoraUseFiscalMonth =>
+  bool? get ahgoraUseFiscalMonth =>
       _readKey(_StoreKeys.ahgoraUseFiscalMonth) == 'true';
   set _ahgoraUseFiscalMonth(bool value) =>
       _allValues[_StoreKeys.ahgoraUseFiscalMonth] = value.toString();

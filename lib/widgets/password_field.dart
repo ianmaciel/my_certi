@@ -33,10 +33,10 @@ class PasswordField extends StatefulWidget {
     this.nextInputFocusNode,
   });
 
-  final bool autocorrect;
-  final bool autofocus;
-  final FocusNode focusNode;
-  final FocusNode nextInputFocusNode;
+  late final bool autocorrect;
+  late final bool autofocus;
+  final FocusNode? focusNode;
+  final FocusNode? nextInputFocusNode;
 
   @override
   _PasswordFieldState createState() => _PasswordFieldState();

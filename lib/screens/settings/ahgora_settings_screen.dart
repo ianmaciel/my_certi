@@ -30,9 +30,9 @@ class AhgoraSettingsScreen extends StatefulWidget {
 }
 
 class _AhgoraSettingsStateScreen extends State<AhgoraSettingsScreen> {
-  bool _savePassword = _settings.ahgoraSaveCredentials;
-  bool _keepSession = _settings.ahgoraKeepSession;
-  bool _useFiscalMonth = _settings.ahgoraUseFiscalMonth;
+  bool _savePassword = _settings.ahgoraSaveCredentials ?? false;
+  bool _keepSession = _settings.ahgoraKeepSession ?? true;
+  bool _useFiscalMonth = _settings.ahgoraUseFiscalMonth ?? true;
 
   static AppSettings _settings = AppSettings();
 
@@ -113,7 +113,7 @@ class _AhgoraSettingsStateScreen extends State<AhgoraSettingsScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    RaisedButton(
+                    ElevatedButton(
                       child: Text('Save'),
                       onPressed: _onSave,
                     ),
@@ -153,7 +153,7 @@ class _AhgoraSettingsStateScreen extends State<AhgoraSettingsScreen> {
       _settings.ahgoraJwtExpiration = ahgora.expirationDate;
     } else {
       // Find the Scaffold in the widget tree and use it to show a SnackBar.
-      Scaffold.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text("Couldn't login. Double check info."),
       ));
       return;
