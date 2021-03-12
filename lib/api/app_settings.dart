@@ -146,7 +146,8 @@ class AppSettings {
     }
   }
 
-  int? get ahgoraUserId => int.parse(_readKey(_StoreKeys.ahgoraUserId)!);
+  int? get ahgoraUserId =>
+      int.tryParse(_readKey(_StoreKeys.ahgoraUserId) ?? '');
   set _ahgoraUserId(int value) =>
       _allValues[_StoreKeys.ahgoraUserId] = '$value';
   void saveAhgoraUserId(int value) async {

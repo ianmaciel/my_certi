@@ -38,7 +38,7 @@ class _AhgoraSettingsStateScreen extends State<AhgoraSettingsScreen> {
 
   // Text controller used to clear the email typed.
   final TextEditingController _userIDController =
-      TextEditingController(text: '${_settings.ahgoraUserId}');
+      TextEditingController(text: "${_settings.ahgoraUserId ?? ''}");
   final TextEditingController _passwordController =
       TextEditingController(text: _settings.ahgoraPassword);
   final TextEditingController _companyController =

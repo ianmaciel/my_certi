@@ -36,11 +36,9 @@ class TodayPage extends StatelessWidget {
         ),
       );
 
-  List<Widget> _buildListItems() =>
-      _monthlyReport.days?.reversed
-          .map((Day day) => _AhgoraListTile(day))
-          .toList() ??
-      <Widget>[];
+  List<Widget> _buildListItems() => _monthlyReport.days.reversed
+      .map((Day day) => _AhgoraListTile(day))
+      .toList();
 }
 
 class _AhgoraListTile extends StatelessWidget {
