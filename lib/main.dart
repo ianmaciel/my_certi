@@ -24,7 +24,6 @@ import 'package:flutter/material.dart';
 
 import 'package:my_certi/screens/home/home_sceen.dart';
 import 'package:my_certi/screens/settings/settings_screen.dart';
-import 'package:my_certi/screens/login_screen.dart';
 import 'package:my_certi/screens/settings/ahgora_settings_screen.dart';
 
 void main() => runApp(MyApp());
@@ -49,7 +48,6 @@ class MyApp extends StatelessWidget {
       ),
       home: HomeScreen(),
       routes: <String, WidgetBuilder>{
-        '/login': (context) => LoginScreen(),
         '/home': (context) => HomeScreen(),
         '/settings': (context) => SettingsScreen(),
         '/ahgora_settings': (context) => AhgoraSettingsScreen(),
