@@ -107,18 +107,10 @@ class _AhgoraSettingsStateScreen extends State<AhgoraSettingsScreen> {
                 ],
               ),
             ),
-            Expanded(
-              child: Container(
-                alignment: Alignment.bottomCenter,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    ElevatedButton(
-                      child: Text('Save'),
-                      onPressed: _onSave,
-                    ),
-                  ],
-                ),
+            ListTile(
+              subtitle: ElevatedButton(
+                child: Text('Save'),
+                onPressed: _onSave,
               ),
             ),
           ],
