@@ -81,10 +81,36 @@ class _SafeFlutterSecureStorage extends FlutterSecureStorage {
       lOptions: lOptions,
     );
   }
+
+  /// Deletes associated value for the given [key].
+  ///
+  /// [key] shouldn't be null.
+  /// [iOptions] optional iOS options
+  /// [aOptions] optional Android options
+  /// [lOptions] optional Linux options
+  /// Can throw a [PlatformException].
+  @override
+  Future<void> delete({
+    required String key,
+    IOSOptions? iOptions = IOSOptions.defaultOptions,
+    AndroidOptions? aOptions,
+    LinuxOptions? lOptions,
+  }) {
+    if (kIsWeb) {
+      return Future.value();
+    }
+
+    return super.delete(
+      key: key,
+      iOptions: iOptions,
+      aOptions: aOptions,
+      lOptions: lOptions,
+    );
+  }
 }
 
 class AppSettings {
-  Map<String, String?> _allValues = Map<String, String?>();
+  Map<String, String> _allValues = <String, String>{};
   final storage = new _SafeFlutterSecureStorage();
 
   /// Read-only status - indicate when all the keys are loaded.
@@ -168,12 +194,17 @@ class AppSettings {
   }
 
   String? get ahgoraJwt => _readKey(_StoreKeys.ahgoraJwt);
-  set ahgoraJwt(String? value) => _allValues[_StoreKeys.ahgoraJwt] = value;
+  set _ahgoraJwt(String value) => _allValues[_StoreKeys.ahgoraJwt] = value;
   void saveAhgoraJwt(String value) async {
-    ahgoraJwt = value;
+    _ahgoraJwt = value;
     if (ahgoraKeepSession!) {
       await storage.write(key: _StoreKeys.ahgoraJwt, value: value);
     }
+  }
+
+  void deleteAhgoraJwt() async {
+    _allValues.remove(_StoreKeys.ahgoraJwt);
+    await storage.delete(key: _StoreKeys.ahgoraJwt);
   }
 
   DateTime get ahgoraJwtExpiration =>

@@ -94,7 +94,7 @@ class _BuildTodayPageState extends State<BuildTodayPage> {
       });
     } on InexistentSession {
       // Invalid session. Session has expired or token has been cancelled.
-      _settings.ahgoraJwt = null;
+      _settings.deleteAhgoraJwt();
 
       // Restart
       initAhgora();

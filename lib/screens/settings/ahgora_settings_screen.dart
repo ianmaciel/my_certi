@@ -149,7 +149,7 @@ class _AhgoraSettingsStateScreen extends State<AhgoraSettingsScreen> {
         int.parse(_userIDController.text), _passwordController.text);
 
     if (result) {
-      _settings.ahgoraJwt = ahgora.jwt;
+      _settings.saveAhgoraJwt(ahgora.jwt);
       _settings.ahgoraJwtExpiration = ahgora.expirationDate;
     } else {
       // Find the Scaffold in the widget tree and use it to show a SnackBar.
