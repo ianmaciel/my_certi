@@ -48,18 +48,26 @@ class _BuildTodayPageState extends State<BuildTodayPage> {
   /// Called when AppSettings finish loading settings.
   ///
   void initSettingsCallback() {
+    setState(() {
+      _loading = true;
+    });
     initAhgora();
   }
 
   void initAhgora() {
-    _loading = true;
     if (_settings.isConnectedToAhgora) {
+      setState(() {
+        _loading = true;
+      });
       _ahgora.jwt = _settings.ahgoraJwt!;
       _updateMonthlyReport();
       return;
     }
 
     if (_settings.hasAhgoraCredentials) {
+      setState(() {
+        _loading = true;
+      });
       _ahgora
           .login(
             _settings.ahgoraCompany!,
