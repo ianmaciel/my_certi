@@ -31,14 +31,23 @@ class TodayPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        child: ListView(
-          children: _buildListItems(),
-        ),
+        child: _buildListItems(),
       );
 
-  List<Widget> _buildListItems() => _monthlyReport.days.reversed
-      .map((Day day) => _AhgoraListTile(day))
-      .toList();
+  Widget _buildListItems() {
+    if (_monthlyReport.days.length >= 1) {
+      return ListView(
+          children: _monthlyReport.days.reversed
+              .map((Day day) => _AhgoraListTile(day))
+              .toList());
+    } else {
+      return Center(
+        child: ListTile(
+          title: Text('Nenhuma entrada registrada este mês.'),
+        ),
+      );
+    }
+  }
 }
 
 class _AhgoraListTile extends StatelessWidget {
