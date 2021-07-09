@@ -22,7 +22,17 @@
 
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+import 'package:my_certi/screens/home/build_today_page.dart';
+import 'package:my_certi/screens/home/clock_page.dart';
+
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  Widget currentScreen = BuildTodayPage();
+
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -45,8 +55,21 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               ListTile(
+                title: Text('Hoje'),
+                onTap: () {
+                  setState(() {
+                    currentScreen = BuildTodayPage();
+                  });
+                  // Close the drawer
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
                 title: Text('Ponto'),
                 onTap: () {
+                  setState(() {
+                    currentScreen = ClockPage();
+                  });
                   // Close the drawer
                   Navigator.pop(context);
                 },
@@ -54,5 +77,6 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         ),
+        body: currentScreen,
       );
 }
